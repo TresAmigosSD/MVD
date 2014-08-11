@@ -1,0 +1,9 @@
+data/*/all/*
+data/*/sampled/*
+data/*/raw/*
+data/*/sparkshell_log
+data/*/report/*
+data/quicktest
+target
+trash
+**/*.swp
