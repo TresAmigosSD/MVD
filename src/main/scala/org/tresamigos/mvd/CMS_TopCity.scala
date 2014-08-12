@@ -101,7 +101,7 @@ object CMS_TopCity {
         'place_of_service,
         'hcpcs_code,
         'hcpcs_description
-    )(byVal = true)
+    )(byFreq = true)
 
     edd.report.saveAsGZFile(outreport)
   }

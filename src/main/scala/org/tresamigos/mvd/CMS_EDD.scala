@@ -90,7 +90,7 @@ object CMS_EDD {
         'line_srvc_cnt,
         'bene_unique_cnt,
         'bene_day_srvc_cnt
-    )(byVal = true, binSize = 20)
+    )(byFreq = true, binSize = 20)
 
     edd.report.saveAsGZFile(outreport)
   }
