@@ -82,9 +82,9 @@ object CMS_TopCity {
         'stdev_Medicare_payment_amt       
     )
 
-    val edd=srdd.groupEdd('city).baseTasks()
+    val edd=srdd.groupEdd('city).addBaseTasks()
 
-    edd.amtHistTasks(
+    edd.addAmountHistogramTasks(
       'average_Medicare_allowed_amt,
       'average_submitted_chrg_amt,
       'average_Medicare_payment_amt,
@@ -93,7 +93,7 @@ object CMS_TopCity {
       'bene_day_srvc_cnt
     )
 
-    edd.histTasks(
+    edd.addHistogramTasks(
         'nppes_credentials,
         'nppes_provider_gender,
         'nppes_entity_code,
@@ -103,6 +103,6 @@ object CMS_TopCity {
         'hcpcs_description
     )(byFreq = true)
 
-    edd.report.saveAsGZFile(outreport)
+    edd.createReport.saveAsGZFile(outreport)
   }
 }

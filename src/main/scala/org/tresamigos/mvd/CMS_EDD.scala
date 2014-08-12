@@ -63,9 +63,9 @@ object CMS_EDD {
         'stdev_Medicare_payment_amt       
     )
 
-    val edd=srdd.edd.baseTasks()
+    val edd=srdd.edd.addBaseTasks()
 
-    edd.amtHistTasks(
+    edd.addAmountHistogramTasks(
       'average_Medicare_allowed_amt,
       'stdev_Medicare_allowed_amt,
       'average_submitted_chrg_amt,
@@ -74,7 +74,7 @@ object CMS_EDD {
       'stdev_Medicare_payment_amt
     )
 
-    edd.histTasks(
+    edd.addHistogramTasks(
         'nppes_credentials,
         'nppes_provider_gender,
         'nppes_entity_code,
@@ -92,6 +92,6 @@ object CMS_EDD {
         'bene_day_srvc_cnt
     )(byFreq = true, binSize = 20)
 
-    edd.report.saveAsGZFile(outreport)
+    edd.createReport.saveAsGZFile(outreport)
   }
 }
