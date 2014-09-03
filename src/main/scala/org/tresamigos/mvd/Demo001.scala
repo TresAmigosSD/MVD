@@ -35,15 +35,16 @@ object Demo001 {
     val sqlContext = new SQLContext(sc)
     import sqlContext._
     import org.apache.spark.sql.catalyst.expressions._
+    import org.tresamigos.smv.CsvAttributes.defaultTsv
 
-    val srdd = sqlContext.csvFileWithSchema(indata, schema, delimiter = '\t')
+    val srdd = sqlContext.csvFileWithSchema(indata, schema)
 
     val result=srdd.groupBy('npi)(
       First('npi) as 'npi, 
       Sum('line_srvc_cnt) as 'total_srvc
     )
 
-    result.saveAsCsvWithSchema(outdata, '|')
+    result.saveAsCsvWithSchema(outdata)
 
   }
 }

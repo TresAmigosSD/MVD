@@ -35,8 +35,9 @@ object CMS_EDD {
     val sc = new SparkContext(conf)
     val sqlContext = new SQLContext(sc)
     import sqlContext._
+    import org.tresamigos.smv.CsvAttributes.defaultTsv
 
-    val filein = sqlContext.csvFileWithSchema(indata, schema, delimiter = '\t')
+    val filein = sqlContext.csvFileWithSchema(indata, schema)
 
     val srdd = filein.select(
         'npi,

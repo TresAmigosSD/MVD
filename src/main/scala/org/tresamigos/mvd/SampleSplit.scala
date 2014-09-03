@@ -36,12 +36,14 @@ object SampleSplit {
   val sampled = datadir + "sampled"
 
   def main(args: Array[String]) {
+    import org.tresamigos.smv.CsvAttributes.defaultTsv
+
     val conf = new SparkConf().setAppName("SampleSplit")
     val sc = new SparkContext(conf)
 
     val raw_rdd = sc.textFile(raw, 1)
-    val p_rdd = raw_rdd.pipe("sed -e 1,2d").csvAddKey()(delimiter='\t').hashPartition(8)
-    val sampled_rdd = p_rdd.csvAddKey()(delimiter='\t').hashSample(0.05)
+    val p_rdd = raw_rdd.pipe("sed -e 1,2d").csvAddKey().hashPartition(8)
+    val sampled_rdd = p_rdd.csvAddKey().hashSample(0.05)
 
     p_rdd.saveAsGZFile(all)
     sampled_rdd.saveAsGZFile(sampled)

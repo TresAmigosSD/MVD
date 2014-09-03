@@ -38,8 +38,9 @@ object SummaryDoubles {
     val sc = new SparkContext(conf)
     val sqlContext = new SQLContext(sc)
     import sqlContext._
+    import org.tresamigos.smv.CsvAttributes.defaultTsv
 
-    val srdd = sqlContext.csvFileWithSchema(indata, schema, delimiter = '\t')
+    val srdd = sqlContext.csvFileWithSchema(indata, schema)
 
     val varlist = Array(
       'line_srvc_cnt, 
