@@ -12,23 +12,27 @@
  * limitations under the License.
  */
 
-import org.apache.log4j.{LogManager, Logger, Level}
-import org.apache.spark.sql.SQLContext
+package org.tresamigos.mvd.projectcms.adhoc
+
+import org.tresamigos.mvd.projectcms.core._
+import org.tresamigos.mvd.projectcms.phase1._
 import org.tresamigos.smv._
-val sqlContext = new SQLContext(sc)
-import sqlContext._
 import org.apache.spark.sql.catalyst.expressions._
 
-object SparkTestUtil {
-  import scala.collection.JavaConversions.enumerationAsScalaIterator
+object Ex01SimpleAggregate extends SmvModule("Example 01: to demo simple use") {
 
-  def setLoggingLevel(level: Level) {
-    val rootLogger = LogManager.getRootLogger
-    val loggers = rootLogger :: LogManager.getCurrentLoggers.map(_.asInstanceOf[Logger]).toList
-    loggers.foreach { logger =>
-      logger.setLevel(level)
-    }
+  override def requiresDS() = Seq(
+    CmsRaw
+  )
+
+  override def run(i: runParams) = {
+    val srdd = i(CmsRaw)
+    import srdd.sqlContext._
+
+    srdd.groupBy('npi)(
+      First('npi) as 'npi,
+      Sum('line_srvc_cnt) as 'total_srvc
+    )
   }
 }
 
-SparkTestUtil.setLoggingLevel(Level.ERROR)

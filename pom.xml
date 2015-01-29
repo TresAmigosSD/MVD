@@ -37,26 +37,42 @@
       <artifactId>all</artifactId>
       <version>1.1.2</version>
       <type>pom</type>
+      <scope>provided</scope>
     </dependency>
     <dependency> <!-- Spark dependency -->
       <groupId>org.apache.spark</groupId>
       <artifactId>spark-core_2.10</artifactId>
-      <version>1.0.2</version>
+      <version>1.1.0</version>
+      <scope>provided</scope>
     </dependency>
     <dependency> <!-- Spark dependency -->
       <groupId>org.apache.spark</groupId>
       <artifactId>spark-sql_2.10</artifactId>
-      <version>1.0.2</version>
+      <version>1.1.0</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency> <!-- Spark dependency -->
+      <groupId>org.apache.spark</groupId>
+      <artifactId>spark-catalyst_2.10</artifactId>
+      <version>1.1.0</version>
+      <scope>provided</scope>
     </dependency>
     <dependency> <!-- Spark dependency -->
       <groupId>org.apache.spark</groupId>
       <artifactId>spark-mllib_2.10</artifactId>
-      <version>1.0.2</version>
+      <version>1.1.0</version>
+      <scope>provided</scope>
     </dependency>
     <dependency> <!-- smv dependency -->
       <groupId>org.tresamigos</groupId>
       <artifactId>smv</artifactId>
       <version>1.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>org.scala-lang</groupId>
+      <artifactId>scala-library</artifactId>
+      <version>2.10.4</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.scalatest</groupId>
@@ -67,26 +83,38 @@
   </dependencies>
 
   <build>
-    <sourceDirectory>src/main/scala</sourceDirectory>
-    <testSourceDirectory>src/test/scala</testSourceDirectory>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>net.alchim31.maven</groupId>
+          <artifactId>scala-maven-plugin</artifactId>
+          <version>3.1.6</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>2.0.2</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+
     <plugins>
       <plugin>
-        <groupId>org.scala-tools</groupId>
-        <artifactId>maven-scala-plugin</artifactId>
+        <groupId>net.alchim31.maven</groupId>
+        <artifactId>scala-maven-plugin</artifactId>
+        <configuration>
+          <recompileMode>incremental</recompileMode>
+        </configuration>
         <executions>
           <execution>
+            <id>scala-compile-first</id>
+            <phase>process-resources</phase>
             <goals>
+              <goal>add-source</goal>
               <goal>compile</goal>
-              <goal>testCompile</goal>
             </goals>
           </execution>
         </executions>
-        <configuration>
-          <scalaVersion>${scala.version}</scalaVersion>
-          <args>
-            <arg>-target:jvm-1.6</arg>
-          </args>
-        </configuration>
       </plugin>
 
       <plugin>
@@ -108,36 +136,36 @@
         </executions>
       </plugin>
 
-        <!-- disable surefire -->
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <version>2.7</version>
-            <configuration>
-                <skipTests>true</skipTests>
-            </configuration>
-        </plugin>
+      <!-- disable surefire -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.7</version>
+        <configuration>
+          <skipTests>true</skipTests>
+        </configuration>
+      </plugin>
 
-        <!-- enable scalatest -->
-        <plugin>
-            <groupId>org.scalatest</groupId>
-            <artifactId>scalatest-maven-plugin</artifactId>
-            <version>1.0</version>
-            <configuration>
-                <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
-                <junitxml>.</junitxml>
-                <filereports>WDF TestSuite.txt</filereports>
-            </configuration>
-            <executions>
-                <execution>
-                    <id>test</id>
-                    <goals>
-                        <goal>test</goal>
-                    </goals>
-                </execution>
-            </executions>
-        </plugin>
+      <!-- enable scalatest -->
+      <plugin>
+        <groupId>org.scalatest</groupId>
+        <artifactId>scalatest-maven-plugin</artifactId>
+        <version>1.0</version>
+        <configuration>
+          <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
+          <junitxml>.</junitxml>
+          <filereports>WDF TestSuite.txt</filereports>
+        </configuration>
+        <executions>
+          <execution>
+            <id>test</id>
+            <goals>
+              <goal>test</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
 
     </plugins>
-    </build>
-  </project>
+  </build>
+</project>
