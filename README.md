@@ -8,7 +8,7 @@ This is a demo ~~Big~~ Data Application project with [SMV](https://github.com/Tr
 Install SMV
 ===========
 
-* Install [Spark](http://spark.apache.org/) version 1.02 
+* Install [Spark](http://spark.apache.org/) version 1.10 
 * Download [SMV](https://github.com/TresAmigosSD/SMV) with ```git clone```
 * Compile SMV with ```mvn clean package install```
 
