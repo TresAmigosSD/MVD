@@ -8,7 +8,7 @@ This is a demo ~~Big~~ Data Application project with [SMV](https://github.com/Tr
 Install SMV
 ===========
 
-* Install [Spark](http://spark.apache.org/) version 1.10 
+* Install [Spark](http://spark.apache.org/) version 1.1
 * Download [SMV](https://github.com/TresAmigosSD/SMV) with ```git clone```
 * Compile SMV with ```mvn clean package install```
 
@@ -16,6 +16,7 @@ Setup MVD
 ========
 
 * Download [MVD](https://github.com/TresAmigosSD/MVD) with ```git clone```
+* Compile MVD with ```mvn package```
 
 Get Data
 =======
@@ -34,7 +35,6 @@ Run Demos
 
 * Discover Schema
 ```shell
-$ mvn package
 $ spark-submit --master local[2] --class org.tresamigos.mvd.projectcms.adhoc.DiscoverSchema target/mvd-1.0-SNAPSHOT-jar-with-dependencies.jar
 ```
 A directory "cms_raw_no_2nd_line.schema" should be generated under data/cms/input. Move the "part-00000" file out of that directory and rename the file
